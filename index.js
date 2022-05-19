@@ -4,6 +4,7 @@ var op;
 var isGettingNum1 = true;
 var isGettingNum2 = false;
 var res = 0;
+var todo;
 
 $(".butOne").click(function(Event){
     if(isGettingNum1){
@@ -106,6 +107,85 @@ $(".butZero").click(function(Event){
     }
 })
 
+$(document).keydown(function(Event){
+    todo=Event.which;
+    todo-=96;
+    if(todo>=0 && todo <=9){
+        if(isGettingNum1){
+            num1 = (num1*10) + todo;
+            $("h3").text(num1);
+        }
+        else if(isGettingNum2){
+            num2 = (num2*10) + todo;
+            $("h3").text(num1 + " " + op + " " + num2);
+        }
+    }
+    else if(todo===11){
+        if(isGettingNum1){
+            op = '+';
+            isGettingNum1 = false;
+            isGettingNum2 = true;
+            $("h3").text(num1 + " " + op);
+            }
+            else if(isGettingNum2){
+                Result(num1, num2, op);
+                num1=res;
+                op = '+';
+                $("h3").text(res + " " + op);
+                num2 = 0;
+            }
+    }
+    else if(todo===13){
+        if(isGettingNum1){
+            op = '-';
+            isGettingNum1 = false;
+            isGettingNum2 = true;
+            $("h3").text(num1 + " " + op);
+            }
+            else if(isGettingNum2){
+                Result(num1, num2, op);
+                num1=res;
+                op = '-';
+                $("h3").text(res + " " + op);
+                num2 = 0;
+            }
+    }
+    else if(todo===10){
+        if(isGettingNum1){
+            op = '*';
+            isGettingNum1 = false;
+            isGettingNum2 = true;
+            $("h3").text(num1 + " " + op);
+            }
+            else if(isGettingNum2){
+                Result(num1, num2, op);
+                num1=res;
+                op = '*';
+                $("h3").text(res + " " + op);
+                num2 = 0;
+            }    
+    }
+    else if(todo===15){
+        if(isGettingNum1){
+            op = '/';
+            isGettingNum1 = false;
+            isGettingNum2 = true;
+            $("h3").text(num1 + " " + op);
+            }
+            else if(isGettingNum2){
+                Result(num1, num2, op);
+                num1=res;
+                op = '/';
+                $("h3").text(res + " " + op);
+                num2 = 0;
+            }
+    }
+    else if(todo===-83){
+        Result(num1, num2, op);    
+    }
+
+})
+
 $(".butEqual").click(function(Event){
     Result(num1, num2, op);
 })
@@ -117,7 +197,7 @@ $(".butPlus").click(function(Event){
     isGettingNum2 = true;
     $("h3").text(num1 + " " + op);
     }
-    else if(isGettingNum2 && res!==0){
+    else if(isGettingNum2){
         Result(num1, num2, op);
         num1=res;
         op = '+';
@@ -132,7 +212,7 @@ $(".butMinus").click(function(Event){
     isGettingNum2 = true;
     $("h3").text(num1 + " " + op);
     }
-    else if(isGettingNum2 && res!==0){
+    else if(isGettingNum2){
         Result(num1, num2, op);
         num1=res;
         op = '-';
@@ -147,7 +227,7 @@ $(".butMultiply").click(function(Event){
     isGettingNum2 = true;
     $("h3").text(num1 + " " + op);
     }
-    else if(isGettingNum2 && res!==0){
+    else if(isGettingNum2){
         Result(num1, num2, op);
         num1=res;
         op = '*';
@@ -162,7 +242,7 @@ $(".butDivide").click(function(Event){
     isGettingNum2 = true;
     $("h3").text(num1 + " " + op);
     }
-    else if(isGettingNum2 && res!==0){
+    else if(isGettingNum2){
         Result(num1, num2, op);
         num1=res;
         op = '/';
